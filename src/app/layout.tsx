@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Arklyte Travel Planner",
-  description: "The App is Powered by Bright Data.",
+  description: "The App is Powered by Het Patel.",
 };
 
 export default function RootLayout({

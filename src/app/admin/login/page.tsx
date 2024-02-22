@@ -1,8 +1,29 @@
-import { Card, CardHeader } from "@nextui-org/react";
+"use client";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Input,
+} from "@nextui-org/react";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
+
+import { Architects_Daughter } from "next/font/google";
+
+const ArchitectsDaughter = Architects_Daughter({
+  weight: "400",
+  style: "normal",
+  subsets: ["latin"],
+});
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {};
+
   return (
     <div
       className="h-[100vh] w-full flex items-center justify-center bg-cover bg-center bg-no-repeat"
@@ -19,8 +40,43 @@ const Login = () => {
               width={80}
               className="cursor-pointer"
             />
+            <span className="text-xl uppercase font-medium italic text-white">
+              <span className={ArchitectsDaughter.className}>
+                ARKLYTE Admin Login
+              </span>
+            </span>
           </div>
         </CardHeader>
+        <CardBody className="flex flex-col items-center w-full justify-center">
+          <div className="flex flex-col gap-2 w-full">
+            <Input
+              placeholder="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              color="danger"
+            />
+            <Input
+              placeholder="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              color="danger"
+            />
+          </div>
+        </CardBody>
+        <CardFooter className="flex flex-col gap-2 items-center justify-center">
+          <Button
+            color="danger"
+            variant="shadow"
+            className="w-full capitalize"
+            size="lg"
+            onClick={handleLogin}
+          >
+            {/* i have added styles to button login with span */}
+            <span className={ArchitectsDaughter.className}>Login</span>
+          </Button>
+        </CardFooter>
       </Card>
     </div>
   );
