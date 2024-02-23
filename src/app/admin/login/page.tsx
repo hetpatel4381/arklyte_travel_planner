@@ -13,6 +13,8 @@ import React, { useState } from "react";
 import { Architects_Daughter } from "next/font/google";
 import { apiClient } from "@/lib";
 import { ADMIN_API_ROUTES } from "@/utils";
+import { useAppState } from "@/store";
+import { useRouter } from "next/navigation";
 
 const ArchitectsDaughter = Architects_Daughter({
   weight: "400",
@@ -23,6 +25,8 @@ const ArchitectsDaughter = Architects_Daughter({
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUserInfo } = useAppState();
+  const router = useRouter();
 
   const handleLogin = async () => {
     try {
@@ -31,8 +35,10 @@ const Login = () => {
         password,
       });
 
-      // if (response.data.userInfo) {
-      // }
+      if (response.data.userInfo) {
+        setUserInfo(response.data.userInfo);
+        router.push("/admin");
+      }
     } catch (error) {
       console.log(error);
     }
