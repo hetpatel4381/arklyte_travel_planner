@@ -1,5 +1,8 @@
 "use client";
+import { apiClient } from "@/lib";
+import { ADMIN_API_ROUTES } from "@/utils";
 import {
+  Button,
   Card,
   CardBody,
   CardFooter,
@@ -24,6 +27,13 @@ const ScrapeData = () => {
     );
     const parsed = response.data?.geonames;
     setCities(parsed?.map((city: { name: string }) => city.name) ?? []);
+  };
+
+  const startScraping = async () => {
+    await apiClient.post(ADMIN_API_ROUTES.CREATE_JOB, {
+      url: `https://packages.yatra.com/holidays/intl/search.htm?destination=${selectedCity}`,
+      jobType: { type: "location" },
+    });
   };
 
   return (
@@ -53,7 +63,19 @@ const ScrapeData = () => {
             </Tab>
           </Tabs>
         </CardBody>
-        <CardFooter className="flex flex-col gap-5"></CardFooter>
+        <CardFooter className="flex flex-col gap-5">
+          {selectedCity && (
+            <h1 className="text-xl">Scrape data for {selectedCity}</h1>
+          )}
+          <Button
+            size="lg"
+            className="w-full"
+            color="primary"
+            onClick={startScraping}
+          >
+            Scrape
+          </Button>
+        </CardFooter>
       </Card>
     </section>
   );
